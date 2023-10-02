@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { Transaction } from './transaction.schema';
 
@@ -9,6 +9,14 @@ export class TransactionsController {
   @Post()
   async create(@Body() data: Partial<Transaction>) {
     return this.transactionsService.createTransaction(data);
+  }
+
+  @Patch('restore')
+  restorePurchase(
+    @Body('userId') userId: string,
+    @Body('productId') productId: string,
+  ) {
+    return this.transactionsService.restorePurchase(userId, productId);
   }
 
   @Patch(':id')
