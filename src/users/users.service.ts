@@ -18,9 +18,9 @@ export class UsersService {
     return user;
   }
   async create(
-    email: string,
     service_type: string,
     external_id: string,
+    email?: string,
   ): Promise<User> {
     const existingUser = await this.userModel
       .findOne({

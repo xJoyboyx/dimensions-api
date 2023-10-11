@@ -19,9 +19,9 @@ export class UsersController {
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     const user = await this.usersService.create(
-      createUserDto.email,
       createUserDto.service_type,
       createUserDto.external_id,
+      createUserDto.email,
     );
 
     if (user.createdAt === user.updatedAt) {
