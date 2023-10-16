@@ -1,6 +1,6 @@
 import {
   Body,
-  Controller, Get,
+  Controller, Delete, Get,
   HttpCode,
   HttpStatus, Param,
   Post,
@@ -15,6 +15,11 @@ export class UsersController {
   @Get(':id')
   async getUserById(@Param('id') userId: string) {
     return this.usersService.findById(userId);
+  }
+  @Delete(':userId')
+  @HttpCode(204) // HTTP 204 No Content on successful deletion
+  async deleteById(@Param('userId') userId: string): Promise<void> {
+    await this.usersService.deleteById(userId);
   }
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto, @Res() res: Response) {

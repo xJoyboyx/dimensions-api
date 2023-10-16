@@ -10,6 +10,14 @@ export class UsersService {
   async findByEmail(email: string): Promise<User | null> {
     return this.userModel.findOne({ email }).exec();
   }
+  async deleteById(userId: string): Promise<User> {
+    const user = await this.userModel.findById(userId).exec();
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID ${userId} no encontrado`);
+    }
+    await this.userModel.findByIdAndDelete(userId).exec();
+    return user;
+  }
   async findById(userId: string): Promise<User> {
     const user = await this.userModel.findById(userId).exec();
     if (!user) {
